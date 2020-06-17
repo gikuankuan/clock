@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>clock</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Suez+One&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: rgb(255, 255, 255);
+        margin: 0;
+      }
+      #clock1 {
+        width: 740px;
+        height: 100px;
+        /* background: rgba(252, 238, 255, 0.5); */
+        margin: 20vh auto;
+        padding: 10px;
+        display: flex;
+      }
+      .ck {
+        display: inline-flex;
+      }
+      .c1,
+      .c2,
+      .c3,
+      .c4,
+      .c5,
+      .c6,
+      .c7,
+      .c8,
+      .c9,
+      .c0 {
+        width: 100px;
+        height: 100px;
+        background: url("number.png");
+        display: inline-block;
+      }
+      .cc {
+        width: 50px;
+        height: 100px;
+        background: url("number.png");
+        background-position: 50px;
+        display: inline-block;
+        margin: 0 10px;
+      }
+      .c1 {
+        background-position: 0px;
+      }
+      .c2 {
+        background-position: -100px;
+      }
+      .c3 {
+        background-position: -200px;
+      }
+      .c4 {
+        background-position: -300px;
+      }
+      .c5 {
+        background-position: -400px;
+      }
+      .c6 {
+        background-position: -500px;
+      }
+      .c7 {
+        background-position: -600px;
+      }
+      .c8 {
+        background-position: -700px;
+      }
+      .c9 {
+        background-position: -800px;
+      }
+      .c0 {
+        background-position: -900px;
+      }
+
+      .clock2 {
+        margin: 0 auto 20vh;
+        width: 600px;
+        height: 300px;
+        background: rgb(101, 154, 214);
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        font-family: "Suez One", serif;
+      }
+      .ck2_time {
+        font-size: 6rem;
+        margin: 0;
+      }
+      .ck2_date {
+        font-size: 3rem;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="clock1">
+      <span class="ck">
+        <span id="ck1" class="c1"></span>
+        <!-- 時第一個數字 -->
+        <span id="ck2" class="c2"></span>
+        <!-- 時第二個數字 -->
+      </span>
+      <span class="cc"></span>
+      <!-- 冒號 -->
+      <span class="ck">
+        <span id="ck3" class="c3"></span>
+        <!-- 分第一個數字 -->
+        <span id="ck4" class="c4"></span>
+        <!-- 分第二個數字 -->
+      </span>
+      <span class="cc"></span>
+      <!-- 冒號 -->
+      <span class="ck">
+        <span id="ck5" class="c5"></span>
+        <!-- 秒第一個數字 -->
+        <span id="ck6" class="c6"></span>
+        <!-- 秒第二個數字 -->
+      </span>
+    </div>
+
+    <script>
+      function retime() {
+        setTimeout(retime, 1000);
+
+        let t = new Date();
+        let hour = t.getHours();
+        let min = t.getMinutes();
+        let sec = t.getSeconds();
+
+        // console.log(hour,min,sec);
+        //這是時分秒的總秒數
+
+        let hx = hour % 10;
+        let mx = min % 10;
+        let sx = sec % 10;
+        // console.log(hx,mx,sx);
+        // 時分秒的個位數
+
+        let ht = Math.floor(hour / 10);
+        let mt = Math.floor(min / 10);
+        let st = Math.floor(sec / 10);
+
+        document.getElementById("ck1").className = "c" + ht;
+        document.getElementById("ck2").className = "c" + hx;
+        document.getElementById("ck3").className = "c" + mt;
+        document.getElementById("ck4").className = "c" + mx;
+        document.getElementById("ck5").className = "c" + st;
+        document.getElementById("ck6").className = "c" + sx;
+
+        //冒號閃逤的效果，每0.5秒動一次
+        document.getElementsByClassName("cc")[0].style.opacity = 0;
+        document.getElementsByClassName("cc")[1].style.opacity = 0;
+        setTimeout(function () {
+          document.getElementsByClassName("cc")[0].style.opacity = 1;
+          document.getElementsByClassName("cc")[1].style.opacity = 1;
+        }, 500);
+      }
+
+      //   document.getElementsByClassName("cc").style.opacity=1;
+    </script>
+
+    <div class="clock2">
+      <p class="ck2_time">12:00:00</p>
+      <p class="ck2_date">2020-06-17</p>
+    </div>
+    <script>
+      function chgtime() {
+        let nt = new Date();
+        let n_day = ["SUN", "MON", "TUS", "WED", "THR", "FRI", "SAT"];
+        
+        let hur = nt.getHours(),
+          min = nt.getMinutes(),
+          sec = nt.getSeconds(),
+          year = nt.getFullYear(),
+          mth = nt.getMonth(),
+          dat = nt.getDate(),
+          day = nt.getDay();
+
+        document.getElementById("time").textContent = `${hur}:${min}:${sec}`;
+        document.getElementById("date").textContent = `${year}-${
+          mth + 1
+        }-${dat} ${n_day[day]}`;
+      }
+    </script>
+  </body>
+</html>
